@@ -1,0 +1,594 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{_tex/code}
+
+<<setup, include=FALSE>>= 
+source('_knitr/setup.R')
+source_python('_knitr/setup.py')
+@
+\end_preamble
+\options a4paper
+\use_default_options true
+\begin_modules
+knitr
+logicalmkup
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Python + LyX
+\end_layout
+
+\begin_layout Author
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+github.com/kenjisato/pythonlyx
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Set an appropriate Python path in 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+_knitr/setup.R
+\end_layout
+
+\end_inset
+
+.
+ You may also have to install several R packages, in particular, knitr and
+ reticulate, before you can successfully compile this LyX file.
+ Since using LyX makes debugging very hard, it is advisable for you 
+\series bold
+not
+\series default
+ to use this package if you have little experience in R and LaTeX and if
+ you have a close deadline.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+import sys
+\end_layout
+
+\begin_layout Plain Layout
+
+print(sys.version)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To include code from an external file, use R function, 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+knitr::read_chunk
+\end_layout
+
+\end_inset
+
+.
+ Since I set the default engine to 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+python
+\end_layout
+
+\end_inset
+
+ in 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+_knitr/setup.R
+\end_layout
+
+\end_inset
+
+, you need to explicity specify 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+engine='R'
+\end_layout
+
+\end_inset
+
+.
+ You may usually want to make this code invisible in the final PDF file
+ by setting 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+include=FALSE
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<engine='R'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+# Read Python code from within the R session
+\end_layout
+
+\begin_layout Plain Layout
+
+knitr::read_chunk('include.py')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here's the content of 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+include.py
+\end_layout
+
+\end_inset
+
+.
+ As you can see, a section starts with a special line 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+#---- label
+\end_layout
+
+\end_inset
+
+ and ends with a beginning of next section or the end of the file.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<engine='bash'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+cat include.py
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You can run section 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+code1
+\end_layout
+
+\end_inset
+
+ by specifying the label.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<code1>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a code that generates a graphic, I prefer to interfere with the default
+ behavior of knitr printing the figure by setting 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+fig.show='hide'
+\end_layout
+
+\end_inset
+
+.
+ I then manually include the figure with 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+
+\backslash
+includegraphics
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<code2, fig.show='hide'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+includegraphics[height=0.4
+\backslash
+textheight]{Figure/code2-1}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Simple plot
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You may also wonder whether you can use 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+r
+\end_layout
+
+\end_inset
+
+ as a variable name.
+ Since 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+reticulate
+\end_layout
+
+\end_inset
+
+ uses 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+r
+\end_layout
+
+\end_inset
+
+ to communicate with R objects from within Python code, there is normally
+ a rectriction that you cannot share an object named 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+r
+\end_layout
+
+\end_inset
+
+ in multiple chunks.
+ My 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+_knitr/setup.R
+\end_layout
+
+\end_inset
+
+ defines a shim for 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+reticulate::py_inject_r()
+\end_layout
+
+\end_inset
+
+ to change the name of the special object because I want to use 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+r
+\end_layout
+
+\end_inset
+
+ for other purposes.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<code3>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You can reuse this normally.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<code4>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You can also use Python variables inline through the special R object, 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+py
+\end_layout
+
+\end_inset
+
+, which passes Python variables to the R session.
+ On the LyX menu, navigate through Insert > Custom insets > S/R expression,
+ then put 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+py$r
+\end_layout
+
+\end_inset
+
+ in the box.
+ You have: 
+\begin_inset Flex S/R expression
+status open
+
+\begin_layout Plain Layout
+
+py$r
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_body
+\end_document
